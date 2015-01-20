@@ -1,0 +1,15 @@
+{
+  "name": "petit",
+  "version": "0.0.5",
+  "description": "Tinyiest possible logger.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Tomas Pollak",
+    "email": "tomas@forkhq.com"
+  },
+  "license": "ISC",
+  "readme": "ERROR: No README data found!"
+}
