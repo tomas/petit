@@ -30,10 +30,6 @@ Now, Given that petit holds a shared reference for the logger initialized by `.g
 
 # Exports
 
-## petit.new(options)
-
-Initializes a new logger instance with the given set of options.
-
 ## petit.get(options)
 
 Return the last initialized logger instance. If none exists, initializes
@@ -44,6 +40,15 @@ a new one, and sets that one as the current.
 This function is also aliased as the module's root exports, meaning you can call it like this:
 
     var logger = require('petit')(options);
+
+## petit.new(options)
+
+Initializes a new logger instance with the given set of options, whether a previous logger exists or not. This provides a way to have multiple logger instances, optionally writing to different streams.
+
+    var petit         = require('petit'),
+        stdout_logger = petit.new(),
+        stream_logger = petit.new({ stream: someWritableStream }),
+        file_logger   = petit.new({ file: '/tmp/output.log' });
 
 ## petit.scope(string)
 
@@ -66,7 +71,7 @@ Shortcut for calling `.scope()` over the logger returned by `.get()`.
         engine = require('./engine');
 
     exports.boot = function() {
-      logger.debug'Starting the engines...');
+      logger.debug('Starting the engines...');
       engine.start(function() {
         logger.info('Engine started!');
       });
