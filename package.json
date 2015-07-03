@@ -1,6 +1,6 @@
 {
   "name": "petit",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Tinyiest possible logger.",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
     "name": "Tomas Pollak",
     "email": "tomas@forkhq.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "readme": "ERROR: No README data found!"
 }

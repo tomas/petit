@@ -24,11 +24,11 @@ var colors = {
   bold:         '1'
 };
 
-var pad = function(str, len, char) {
- return (new Array(len).join(char || ' ') + str).slice(-len);
+function pad(str, len, char) {
+  return (new Array(len).join(char || ' ') + str).slice(-len);
 }
 
-var get_levels = function(prefix, instance) {
+function get_levels(prefix, instance) {
   var res = {};
 
   levels.forEach(function(level) {
@@ -113,8 +113,13 @@ Logger.prototype.paint = function(str, color) {
   return this.paintable && color ? ['\033[', colors[color], 'm', str, '\033[0m'].join('') : str;
 };
 
-Logger.prototype.prefix = function(str) {
+Logger.prototype.scope = function(str) {
   return get_levels(str, this);
+}
+
+Logger.prototype.prefix = function(str) {
+  this.write('.prefix() will be deprecated on next version. Use .scope() instead');
+  return this.scope(str);
 }
 
 var fx = get_levels();
@@ -124,12 +129,29 @@ for (var key in fx) {
 
 //////// exports
 
-exports.new = function(opts) {
-  return new Logger(opts || {});
-};
-
-exports.current = function(opts) {
-  if (current) return current;
-  current = this.new(opts);
+function get(opts) {
+  if (current) {
+    if (opts) current.write('WARNING: Ignoring options, because previous logger instance exists.');
+    return current;
+  }
+  current = init(opts);
   return current;
+}
+
+function init(opts) {
+  return new Logger(opts || {});
+}
+
+module.exports = get;
+module.exports.get = get;
+module.exports.new = init;
+
+module.exports.scope = function(str) {
+  var logger = get();
+  return logger.scope(str);
+}
+
+module.exports.current = function(opts) {
+  this.write(".current() will be deprecated on next version. Use require('petit')() directly instead.");
+  return init(opts);
 }
