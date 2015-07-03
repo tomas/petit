@@ -16,8 +16,9 @@ Tinyiest possible logger. Node.js / IO.js.
 If you have a moderately complex app with multiple modules or files, you can use petit's `.scope()` method which will prepend a string to the log output, showing where that output originated from. 
 
     logger.info('This is shown without any prefix.');
+
     var scoped = logger.scope('component');
-    scoped.logger('This will be shown with a "component" prefix before it.');
+    scoped.info('This will be shown with a "component" prefix before it.');
 
 Now, Given that petit holds a shared reference for the logger initialized by `.get()`, you can have different scoped loggers that output to the same stream from different parts in your app. For example:
 
