@@ -47,7 +47,7 @@ function get_levels(prefix, instance) {
 
 var Logger = function(opts) {
   var self = this;
-  this.stream    = opts.stream ? opts.stream : opts.file ? fs.createWriteStream(opts.file) : process.stdout;
+  this.stream    = opts.stream ? opts.stream : opts.file ? fs.createWriteStream(opts.file, {flags: 'a'}) : process.stdout;
   this.paintable = this.stream.isTTY;
   this.set_level(opts.level || 'info');
   this.rotate_opts = {
